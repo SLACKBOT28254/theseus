@@ -9,7 +9,7 @@ LOOP_DELAY = 1
 
 # credentials
 BOT_NAME = 'theseus'
-BOT_TOKEN = 'xoxb-204890429126-sqE84EeumskeQm9kVsEKjvjH'
+BOT_TOKEN = 'TOKEN'
 BOT_ID = 'U60S6CM3Q'
 
 ## HELPER FUNCTIONS ##
