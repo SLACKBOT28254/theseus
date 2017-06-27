@@ -22,14 +22,9 @@ def log_event(event, out=sys.stdout):
     out.write('\nTEXT: ' + str(event.get('text')))
     out.write(' ')
 
-## MAIN PROGRAM ##
-
-# intialise our slack client
-slack_client = slackclient.SlackClient(BOT_TOKEN)
-
 # This function differentiates between a (generic) greeting and another message or question
 def is_a_greeting(message):
-    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g'day", "howdy", "welcome", "how are you?"]
+    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you?"]
 
     message = message.lower()
 
@@ -38,6 +33,10 @@ def is_a_greeting(message):
     else:
         return False
 
+## MAIN PROGRAM ##
+
+# intialise our slack client
+slack_client = slackclient.SlackClient(BOT_TOKEN)
 
 # This functions handles direct messages sent to our slack bot
 def handle_message(message, user, channel):
@@ -49,9 +48,6 @@ def handle_message(message, user, channel):
 # This function uses the slack client to post a message back in the channel passed in as an arg
 def post_message(message, channel):
     slack_client.api_call('chat.postMessage', channel=channel,text=message, as_user=True)
-
-
-
 
 # This is the main function, which when ran
 # - creates a 1 second infinite loop
@@ -68,22 +64,13 @@ def run():
             if len(event_list) > 0:
                 for event in event_list:
                     user = event.get('user')
-                    if user != BOT_ID and event.get('type') = "message": 
+                    if user != BOT_ID and event.get('type') == "message": 
                         log_event(event)
                         # call our handler function which posts a message to the channel of the incoming event
                         handle_message(message=event.get('text'), user=event.get('user'), channel=event.get('channel'))
             time.sleep(LOOP_DELAY)
     else:
         print '[!] Connection to Slack failed.'
-
-
-
-
-
-
-
-
-
 
 # Python sets the __name__ var as equal to __main__ when this code runs without being imported, so will be true when executed as file.
 if __name__ == '__main__':
