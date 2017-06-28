@@ -57,6 +57,18 @@ def opening_hours_questions(message):
     return False
 
 
+def min_and_max_loan_query(message):
+    loans_key_phrases = ["What is the minimum loan?", "What is the maximum loan?", "What is your maximum loan?", "How much can I loan?", "How much can I borrow?" , "minimum", "maximum", "loan", "borrow"]
+    message = message.lower()
+
+    for phrase in loans_key_phrases:
+        print ("message: "+ message)
+        print ("phrase: "+ phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))
+        if (fuzz.partial_ratio(phrase, message) > 80):
+            print ("found one")
+            return True
+
 ## MAIN PROGRAM ##
 
 # intialise our slack client
@@ -68,7 +80,10 @@ def handle_message(message, user, channel):
         post_message(message='Hi, how can I help?', channel=channel)
     elif opening_hours_questions(message):
         post_message(message = "We are open from 8:00 am to 20:00 pm today", channel=channel)
-    else:
+    
+    elif min_and_max_loan_query(message): 
+        post_message(message = "The minimum loan is \u00a31,000 and the maximum is \u00a35,000 ", channel=channel)
+    else: 
         post_message(message='Sorry, I don\'t know what that means!', channel=channel)
 
 # This function uses the slack client to post a message back in the channel passed in as an arg
