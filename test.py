@@ -12,7 +12,7 @@ def test_logged_events_returns_expected_test():
     theseus.log_event(event, out=out)
     real_output = out.getvalue().strip()
 
-def test_is_greeting_accurately_recognised():
+def test_is_greeting_accurately_recognises_greeting():
     assert theseus.is_a_greeting('hi okay soo this is good') == True
     assert theseus.is_a_greeting('okay soo this is good') == False
     assert theseus.is_a_greeting('okay soo HI this is good') == True
@@ -32,3 +32,43 @@ def test_opening_hours_questions_accurately_recognises_opening_hours_query():
     assert theseus.opening_hours_questions('yoyo') == False
     assert theseus.opening_hours_questions('Opening times') == True
 
+def test_likely_loans_questions_accurately_recognises_likely_loans_query():
+    assert theseus.likely_loans_queries('okay soo this is good') == False
+    assert theseus.likely_loans_queries("Who are likely loans?") == True
+    assert theseus.likely_loans_queries("okay hi this is excellent") == False
+    assert theseus.likely_loans_queries("What is likely loans?") == True
+    assert theseus.likely_loans_queries("okay hey this is really good") == False
+    
+
+def test_oakbrook_finance_questions_recognises_oakbrook_finance_query():
+    assert theseus.oakbrook_finance_query("what is oakbrook?") == True
+    assert theseus.oakbrook_finance_query("what is finance?") == False
+    assert theseus.oakbrook_finance_query("what is oakbrook finance?") == True
+    assert theseus.oakbrook_finance_query("what is this company?") == False
+    assert theseus.oakbrook_finance_query("Who is oakbrook finance?") == True
+    assert theseus.oakbrook_finance_query("Hey this is finance") == False
+    assert theseus.oakbrook_finance_query("Who is Oakbrook?") == True
+    assert theseus.oakbrook_finance_query("Oakbrook Finance") == True
+
+def test_loan_questions_recognises_loan_query():
+    assert theseus.min_and_max_loan_query("What is the minimum loan?") == True
+    assert theseus.min_and_max_loan_query("Loan range") == False
+    assert theseus.min_and_max_loan_query("How much can I borrow?") == True
+    assert theseus.min_and_max_loan_query("hey is this loans") == False
+    assert theseus.min_and_max_loan_query("What is the maximum loan?") == True
+    assert theseus.min_and_max_loan_query("Likely loans") == False
+    assert theseus.min_and_max_loan_query("How much can I loan?") == True
+    assert theseus.min_and_max_loan_query("Hello is this loan") == False
+    assert theseus.min_and_max_loan_query("How much can I loan?") == True
+
+
+def test_arrangement_fee_questions_recognises_arrangement_fee_query():
+    assert theseus.arrangement_fee_query("Do you charge an arrangement fee?") == True
+    assert theseus.arrangement_fee_query("Hello admit this") == False
+    assert theseus.arrangement_fee_query("Is there an arrangement fee?") == True
+    assert theseus.arrangement_fee_query("Can this be arranged?") == False
+    assert theseus.arrangement_fee_query("Arrangement fee") == True
+    assert theseus.arrangement_fee_query("Admin fee") == True
+    assert theseus.arrangement_fee_query("Will I be charged for admin?") == True
+   
+    

@@ -59,7 +59,7 @@ def opening_hours_questions(message):
 
 
 def min_and_max_loan_query(message):
-    loans_key_phrases = ["What is the minimum loan?", "What is the maximum loan?", "What is your maximum loan?", "How much can I loan?", "How much can I borrow?" , "minimum", "maximum", "loan", "borrow"]
+    loans_key_phrases = ["What is the minimum loan?", "What is the maximum loan?", "What is the maximum loan?", "How much can I loan?", "How much can I borrow?" , "minimum", "maximum", "borrow"]
     message = message.lower()
 
     for phrase in loans_key_phrases:
@@ -69,7 +69,50 @@ def min_and_max_loan_query(message):
         if (fuzz.partial_ratio(phrase, message) > 80):
             print ("found one")
             return True
+    
+    return False
 
+
+def arrangement_fee_query(message):
+    extra_fee_key_phrases = ["Do you charge an arrangement fee?", "Admin fee", "Will I be charged for admin?", "Is there a charge for an arrangement fee?", "Are there any extra charges?","Admin Fee", "Extra","Charge","Fee","Admin"]
+    message = message.lower()
+
+    for phrase in extra_fee_key_phrases:
+        print ("message: "+ message)
+        print ("phrase: "+ phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))  
+        if (fuzz.partial_ratio(phrase, message) > 80):
+            print ("found one")
+            return True
+
+    return False
+
+def likely_loans_queries(message):
+    likely_loan_phrases = ["who are likely?", "who are likely loans?" "what are likely loans?", "likely loans?"]
+    message = message.lower()
+    for phrase in likely_loan_phrases:
+        print ("message: "+ message)
+        print ("phrase: "+ phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))  
+        if (fuzz.partial_ratio(phrase, message) > 80):
+            print ("found one")
+            return True
+
+    return False
+
+
+def oakbrook_finance_query(message):
+    oakbrook_finance_key_phrases = ["Who is Oakbrook Finance?", "What is Oakbrook Finance?", "Oakbrook Finance", "Oakbrook"]
+    message = message.lower()
+    for phrase in oakbrook_finance_key_phrases:
+        print ("message: "+ message)
+        print ("phrase: "+ phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message))) 
+        if (fuzz.partial_ratio(phrase, message) > 80):
+                print ("found one")
+                return True
+
+    return False
 ## MAIN PROGRAM ##
 
 # intialise our slack client
@@ -83,7 +126,15 @@ def handle_message(message, user, channel):
         post_message(message = "We are open from 8:00 am to 20:00 pm today", channel=channel)
     
     elif min_and_max_loan_query(message): 
-        post_message(message = "The minimum loan is \u00a31,000 and the maximum is \u00a35,000 ", channel=channel)
+        post_message(message = "The minimum loan is 1,000 pounds and the maximum is 5,000 pounds", channel=channel)
+
+    elif arrangement_fee_query(message):
+        post_message(message = "No, we do not charge any initial fees", channel=channel)
+
+    elif likely_loans_queries(message):
+        post_message(message= "Likely Loans provides you with unsecured personal loans if you are experiencing difficulty in obtaining credit", channel=channel)
+    elif oakbrook_finance_query(message):
+        post_message(message= "Oakbrook Finance is the parent company for Likely Loans.", channel=channel)
     else: 
         post_message(message='Sorry, I don\'t know what that means!', channel=channel)
 
