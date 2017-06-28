@@ -1,6 +1,7 @@
 import time
 import slackclient
 import sys
+import os
 from fuzzywuzzy import fuzz
 
 ## DEFINE CONSTANTS ##
@@ -10,7 +11,7 @@ LOOP_DELAY = 1
 
 # credentials
 BOT_NAME = 'theseus'
-BOT_TOKEN = 'TOKEN'
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 BOT_ID = 'U60S6CM3Q'
 
 ## HELPER FUNCTIONS ##
