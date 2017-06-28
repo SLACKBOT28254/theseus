@@ -1,6 +1,6 @@
 import time
 import slackclient
-import config
+#import config
 import sys
 import os
 from fuzzywuzzy import fuzz
