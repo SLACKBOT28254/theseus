@@ -52,18 +52,18 @@ def opening_hours_questions(message):
         print ("message: "+ message)
         print ("phrase: "+ phrase)
         print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))
-        if (fuzz.partial_ratio(phrase, message) > 80):
+        if (fuzz.partial_ratio(phrase, message) > 75):
             print ("found one")
             return True
    # if the 'percentage match' (fuzzy match) is less than 80 then return False     
         
     return False
 
-
+# function for queries about loans
 def min_and_max_loan_query(message):
     loans_key_phrases = ["What is the minimum loan?", "What is the maximum loan?", "What is the maximum loan?", "How much can I loan?", "How much can I borrow?" , "minimum", "maximum", "borrow"]
     message = message.lower()
-
+# checks the fuzz match score
     for phrase in loans_key_phrases:
         print ("message: "+ message)
         print ("phrase: "+ phrase)
@@ -74,11 +74,11 @@ def min_and_max_loan_query(message):
     
     return False
 
-
+# funnction for questions about fees
 def arrangement_fee_query(message):
     extra_fee_key_phrases = ["Do you charge an arrangement fee?", "Admin fee", "Will I be charged for admin?", "Is there a charge for an arrangement fee?", "Are there any extra charges?","Admin Fee", "Extra","Charge","Fee","Admin"]
     message = message.lower()
-
+# checks the fuzz match score
     for phrase in extra_fee_key_phrases:
         print ("message: "+ message)
         print ("phrase: "+ phrase)
@@ -89,6 +89,7 @@ def arrangement_fee_query(message):
 
     return False
 
+#function for questions about 'likely loans'
 def likely_loans_queries(message):
     likely_loan_phrases = ["who are likely?", "who are likely loans?" "what are likely loans?", "likely loans?"]
     message = message.lower()
@@ -96,13 +97,13 @@ def likely_loans_queries(message):
         print ("message: "+ message)
         print ("phrase: "+ phrase)
         print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))  
-        if (fuzz.partial_ratio(phrase, message) > 80):
+        if (fuzz.partial_ratio(phrase, message) > 75):
             print ("found one")
             return True
 
     return False
 
-
+# functions for questions about oakbrook finance
 def oakbrook_finance_query(message):
     oakbrook_finance_key_phrases = ["Who is Oakbrook Finance?", "What is Oakbrook Finance?", "Oakbrook Finance", "Oakbrook"]
     message = message.lower()

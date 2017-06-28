@@ -70,5 +70,7 @@ def test_arrangement_fee_questions_recognises_arrangement_fee_query():
     assert theseus.arrangement_fee_query("Arrangement fee") == True
     assert theseus.arrangement_fee_query("Admin fee") == True
     assert theseus.arrangement_fee_query("Will I be charged for admin?") == True
-   
+    assert theseus.arrangement_fee_query("Adamant is fear") == False
+    assert theseus.arrangement_fee_query("arrange my loan") == False
+    assert theseus.arrangement_fee_query("Can I take a loan?") == False
     
