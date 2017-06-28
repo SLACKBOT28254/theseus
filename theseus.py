@@ -55,7 +55,7 @@ def opening_hours_questions(message):
         if (fuzz.partial_ratio(phrase, message) > 75):
             print ("found one")
             return True
-   # if the 'percentage match' (fuzzy match) is less than 80 then return False     
+ # if the 'percentage match' (fuzzy match) is less than 80 then return False     
         
     return False
 
@@ -89,10 +89,11 @@ def arrangement_fee_query(message):
 
     return False
 
-#function for questions about 'likely loans'
+# function for questions about 'likely loans'
 def likely_loans_queries(message):
     likely_loan_phrases = ["who are likely?", "who are likely loans?" "what are likely loans?", "likely loans?"]
     message = message.lower()
+ 
     for phrase in likely_loan_phrases:
         print ("message: "+ message)
         print ("phrase: "+ phrase)
