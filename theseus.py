@@ -52,7 +52,7 @@ def opening_hours_questions(message):
         print ("message: "+ message)
         print ("phrase: "+ phrase)
         print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))
-        if (fuzz.partial_ratio(phrase, message) > 75):
+        if (fuzz.partial_ratio(phrase, message) > 75)
             print ("found one")
             return True
  # if the 'percentage match' (fuzzy match) is less than 80 then return False     
