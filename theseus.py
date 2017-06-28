@@ -1,6 +1,7 @@
 import time
 import slackclient
 import sys
+from fuzzywuzzy import fuzz
 
 ## DEFINE CONSTANTS ##
 
@@ -14,6 +15,7 @@ BOT_ID = 'U60S6CM3Q'
 
 ## HELPER FUNCTIONS ##
 
+#function that logs event
 def log_event(event, out=sys.stdout):
     out.write('\n-- NEW EVENT LOG -- \n')
     out.write('\nUSER: ' + str(event.get('user')))
@@ -25,13 +27,35 @@ def log_event(event, out=sys.stdout):
 # This function differentiates between a (generic) greeting and another message or question
 def is_a_greeting(message):
     potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you"]
-
+# sets sent message to lowercase
     message = message.lower()
-
-    if any(word in message for word in potential_greetings):
+# Splits the words in the message sent
+    message_words_split_list = message.split()
+# compares message (that has been split up into words) with potential_greetings list of keywords
+    if any(word in message_words_split_list for word in potential_greetings):
         return True
+ # returns false if there is no match   
     else:
         return False
+
+# function for opening hour questions sent in messages w/t key phrases array
+def opening_hours_questions(message):
+    opening_hours_key_phrases = ["when are you open?", "what time are you open until?", "are you closed?", "are you open?", "what time do you open?", "what time do you close?", "what are your opening hours?","what time are you open until?","hours","time","opening","closed"]
+ # se  ts sent message all to lowercase
+    message = message.lower()
+
+# uses 'fuzzy search' to find a percentage match to the key phrases that would be asked/ compares message to opening hours key phrases
+    for phrase in opening_hours_key_phrases:
+        print ("message: " + message)
+        print ("phrase: " + phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase,message) )
+        if (fuzz.partial_ration(phrase, message) >= 80):
+            print ("found a match")
+            return True
+   # if the 'percentage match' (fuzzy match) is less than 80 then return False     
+        else:
+             return False
+
 
 ## MAIN PROGRAM ##
 
@@ -42,6 +66,8 @@ slack_client = slackclient.SlackClient(BOT_TOKEN)
 def handle_message(message, user, channel):
     if is_a_greeting(message):
         post_message(message='Hi, how can I help?', channel=channel)
+    elif opening_hours_questions(message):
+        post_message(message = "We are open from 8:00 am to 20:00 pm today", channel=channel)
     else:
         post_message(message='Sorry, I don\'t know what that means!', channel=channel)
 
