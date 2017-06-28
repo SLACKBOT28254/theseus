@@ -24,7 +24,7 @@ def log_event(event, out=sys.stdout):
 
 # This function differentiates between a (generic) greeting and another message or question
 def is_a_greeting(message):
-    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you?"]
+    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you"]
 
     message = message.lower()
 
