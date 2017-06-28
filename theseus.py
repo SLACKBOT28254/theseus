@@ -26,7 +26,7 @@ def log_event(event, out=sys.stdout):
 
 # This function differentiates between a (generic) greeting and another message or question
 def is_a_greeting(message):
-    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you"]
+    potential_greetings = ["hello", "hey", "hi", "greetings", "hiya", "good morning", "good evening", "g\'day", "howdy", "welcome", "how are you","yo"]
 # sets sent message to lowercase
     message = message.lower()
 # Splits the words in the message sent
@@ -46,15 +46,15 @@ def opening_hours_questions(message):
 
 # uses 'fuzzy search' to find a percentage match to the key phrases that would be asked/ compares message to opening hours key phrases
     for phrase in opening_hours_key_phrases:
-        print ("message: " + message)
-        print ("phrase: " + phrase)
-        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase,message) )
-        if (fuzz.partial_ration(phrase, message) >= 80):
-            print ("found a match")
+        print ("message: "+ message)
+        print ("phrase: "+ phrase)
+        print ("fuzzy match score: " + str(fuzz.partial_ratio(phrase, message)))
+        if (fuzz.partial_ratio(phrase, message) > 80):
+            print ("found one")
             return True
    # if the 'percentage match' (fuzzy match) is less than 80 then return False     
-        else:
-             return False
+        
+    return False
 
 
 ## MAIN PROGRAM ##
